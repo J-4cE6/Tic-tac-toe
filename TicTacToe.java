@@ -5,7 +5,7 @@ public class TicTacToe {
     static final String LINEA = "=======================================";
 
     public static void main(String[] args) {
-        // Declaración de variables
+        
         Scanner entrada = new Scanner(System.in);
         char[][] tablero = new char[3][3];
         int movimientos;
@@ -15,7 +15,6 @@ public class TicTacToe {
         
         while (jugarDeNuevo) {
 
-            // Reinicia el tablero del 1 al 9
             for (int f = 0; f < 3; f++) {
                 for (int c = 0; c < 3; c++) {
                     tablero[f][c] = (char) ('1' + f * 3 + c);
@@ -27,7 +26,6 @@ public class TicTacToe {
             movimientos = 0;
             estadoGanador = ' ';
 
-            // Parte principal del codigo del juego
             while (jugando) {
                 limpiarPantalla();
 
@@ -44,7 +42,6 @@ public class TicTacToe {
                 mostrarTablero(tablero);
                 System.out.println();
 
-                // Se le solicita al jugador un numero del 1 al 9
                 boolean inputValido = false;
                 while (!inputValido) {
                     System.out.println("Turno del jugador [ " + jugadorActual + " ].");
@@ -54,7 +51,7 @@ public class TicTacToe {
                     try {
                         posicion = Integer.parseInt(entrada.nextLine().trim());
                     } catch (NumberFormatException e) {
-                        posicion = 0; // Se trata como número inválido
+                        posicion = 0; 
                     }
 
                     if (posicion >= 1 && posicion <= 9) {
@@ -73,7 +70,6 @@ public class TicTacToe {
                     }
                 }
 
-                // Verifica al ganador
                 estadoGanador = ' ';
 
                 for (int i = 0; i < 3; i++) {
@@ -92,18 +88,16 @@ public class TicTacToe {
                     estadoGanador = tablero[0][2];
                 }
 
-                // Cambio de turno, o fin del juego (ganador o empate)
                 if (estadoGanador != ' ') {
                     jugando = false;
                 } else if (movimientos == 9) {
-                    estadoGanador = 'E'; // Empate
+                    estadoGanador = 'E'; 
                     jugando = false;
                 } else {
                     jugadorActual = (jugadorActual == 'X') ? 'O' : 'X';
                 }
             }
 
-            // Pantalla final ya con el ganador o el empate 
             limpiarPantalla();
             System.out.println(LINEA);
             System.out.println("            FIN DEL JUEGO              ");
@@ -119,7 +113,6 @@ public class TicTacToe {
             }
             System.out.println(LINEA);
 
-            // Se pregunta si el jugador quiere iniciar otra ronda
             System.out.println();
             System.out.print("¿Quieren jugar otra partida? (Si/No): ");
             String respuesta = entrada.nextLine().trim();
@@ -135,7 +128,6 @@ public class TicTacToe {
         entrada.close();
     }
 
-    // Dibuja el tablero en pantalla
     static void mostrarTablero(char[][] tablero) {
         for (int f = 0; f < 3; f++) {
             System.out.println("        " + tablero[f][0] + " | " + tablero[f][1] + " | " + tablero[f][2]);
