@@ -59,7 +59,7 @@ Proceso  TicTacToe
 						inputValido <- Verdadero;
 						movimientos <- movimientos + 1;
 					Sino
-						Escribir "- ERROR: ¡Casilla ocupada! Escoge otra.";
+						Escribir "- ERROR: Â¡Casilla ocupada! Escoge otra.";
 					FinSi
 				Sino
 					Escribir "- ERROR: Numero invalido. Elegir un numero del 1 al 9.";
@@ -119,22 +119,22 @@ Proceso  TicTacToe
 		Escribir "";
 		
 		Si estadoGanador = "E" Entonces
-			Escribir "       ¡ES UN EMPATE!         ";
+			Escribir "       Â¡ES UN EMPATE!         ";
 		Sino
-			Escribir "   ¡FELICIDADES! EL JUGADOR [ ", estadoGanador, " ] GANA.";
+			Escribir "   Â¡FELICIDADES! EL JUGADOR [ ", estadoGanador, " ] GANA.";
 		FinSi
 		Escribir "=======================================";
 		
 		// y por ultimo esto solo es para preguntar si se quiere jugar otra ronda o no 
 		Escribir "";
-		Escribir "¿Quieren jugar otra partida? (Si/No): ";
+		Escribir "Â¿Quieren jugar otra partida? (Si/No): ";
 		Leer respuesta;
 		
 		Si respuesta = "Si" O respuesta = "si" Entonces
 			jugarDeNuevo <- Verdadero;
 		Sino
 			jugarDeNuevo <- Falso;
-			Escribir "¡Gracias por jugar!.";
+			Escribir "Â¡Gracias por jugar!.";
 		FinSi
 	FinMientras 
 FinProceso
