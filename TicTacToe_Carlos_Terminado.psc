@@ -1,0 +1,141 @@
+Proceso  TicTacToe
+	//esta parte es el bloque donde se declaran todas las variables
+	Definir tablero Como Caracter;
+	Dimension tablero[3,3];
+	Definir fila, col, movimientos, posicion, i, f Como Entero;
+	Definir jugadorActual, estadoGanador, respuesta Como Caracter;
+	Definir jugando, inputValido, jugarDeNuevo Como Logico;
+	
+	jugarDeNuevo <- Verdadero;
+	
+	//este Mientras lo use para que cuando la partida termine muestre la opcion de jugar otra vez y el programa no se cierre
+	Mientras jugarDeNuevo Hacer
+		//esta parte es para que se muestre el tablero al igual que sirve para que el tablero se limpie cada vez que se juege otra vez
+		tablero[0,0] <- "1"; tablero[0,1] <- "2"; tablero[0,2] <- "3";
+		tablero[1,0] <- "4"; tablero[1,1] <- "5"; tablero[1,2] <- "6";
+		tablero[2,0] <- "7"; tablero[2,1] <- "8"; tablero[2,2] <- "9";
+		
+		jugadorActual <- "X";
+		jugando <- Verdadero;
+		movimientos <- 0;
+		estadoGanador <- " ";
+		
+		//esta parte sirve para mostrar en tablero y las instrucciones en la pantalla
+		Mientras jugando Hacer
+			Limpiar Pantalla;
+			
+			Escribir "=======================================";
+			Escribir "              TIC TAC TOE              ";
+			Escribir "=======================================";
+			Escribir "INSTRUCCIONES:";
+			Escribir "1. El juego es para dos jugadores: X y O.";
+			Escribir "2. Para tirar, ingresa un numero (1-9).";
+			Escribir "3. Gana el primero en hacer una linea de 3 (ya sea vertical, horizontal o diagonal).";
+			Escribir "=======================================";
+			
+			Escribir "";
+			Para f <- 0 Hasta 2 Con Paso 1 Hacer
+				Escribir "        ", tablero[f,0], " | ", tablero[f,1], " | ", tablero[f,2];
+				Si f < 2 Entonces
+					Escribir "       ---+---+---";
+				FinSi
+			FinPara
+			Escribir "";
+			
+			inputValido <- Falso;
+			
+			//esta parte es para pedir un nuemero al jugador y verificar que la casilla este vacia
+			Mientras No inputValido Hacer
+				Escribir "Turno del jugador [ ", jugadorActual, " ].";
+				Escribir "Ingresa el numero de casilla (1-9): ";
+				Leer posicion;
+				
+				Si posicion >= 1 Y posicion <= 9 Entonces
+					fila <- trunc((posicion - 1) / 3);
+					col <- (posicion - 1) MOD 3;
+					
+					Si tablero[fila, col] <> "X" Y tablero[fila, col] <> "O" Entonces
+						tablero[fila, col] <- jugadorActual;
+						inputValido <- Verdadero;
+						movimientos <- movimientos + 1;
+					Sino
+						Escribir "- ERROR: ¡Casilla ocupada! Escoge otra.";
+					FinSi
+				Sino
+					Escribir "- ERROR: Numero invalido. Elegir un numero del 1 al 9.";
+				FinSi
+			FinMientras
+			
+			//esta parte es para verificar al ganador, lo que les dije de vertical horizontal y diagonal 
+			estadoGanador <- " ";
+			
+			Para i <- 0 Hasta 2 Con Paso 1 Hacer
+				
+				Si tablero[i,0] = tablero[i,1] Y tablero[i,1] = tablero[i,2] Entonces
+					estadoGanador <- tablero[i,0];
+				FinSi
+				
+				Si tablero[0,i] = tablero[1,i] Y tablero[1,i] = tablero[2,i] Entonces
+					estadoGanador <- tablero[0,i];
+				FinSi
+			FinPara
+			
+			Si tablero[0,0] = tablero[1,1] Y tablero[1,1] = tablero[2,2] Entonces
+				estadoGanador <- tablero[0,0];
+			FinSi
+			Si tablero[0,2] = tablero[1,1] Y tablero[1,1] = tablero[2,0] Entonces
+				estadoGanador <- tablero[0,2];
+			FinSi
+			
+			//esta parte es para el cambio de turno o que el juego finalizo (esto si se detecta un ganador o empate)
+			Si estadoGanador <> " " Entonces
+				jugando <- Falso;
+			Sino
+				Si movimientos = 9 Entonces
+					estadoGanador <- "E"; // Empate
+					jugando <- Falso;
+				Sino
+					Si jugadorActual = "X" Entonces
+						jugadorActual <- "O";
+					Sino
+						jugadorActual <- "X";
+					FinSi
+				FinSi
+			FinSi
+		FinMientras
+		
+		//esta parte es para que desaparezaca el tablero y apareza el msj fin del juego con el jugador que gano o si hubo un empate
+		Limpiar Pantalla;
+		Escribir "=======================================";
+		Escribir "            FIN DEL JUEGO              ";
+		Escribir "=======================================";
+		Escribir "";
+		Para f <- 0 Hasta 2 Con Paso 1 Hacer
+			Escribir "        ", tablero[f,0], " | ", tablero[f,1], " | ", tablero[f,2];
+			Si f < 2 Entonces
+				Escribir "       ---+---+---";
+			FinSi
+		FinPara
+		Escribir "";
+		
+		Si estadoGanador = "E" Entonces
+			Escribir "       ¡ES UN EMPATE!         ";
+		Sino
+			Escribir "   ¡FELICIDADES! EL JUGADOR [ ", estadoGanador, " ] GANA.";
+		FinSi
+		Escribir "=======================================";
+		
+		// y por ultimo esto solo es para preguntar si se quiere jugar otra ronda o no 
+		Escribir "";
+		Escribir "¿Quieren jugar otra partida? (Si/No): ";
+		Leer respuesta;
+		
+		Si respuesta = "Si" O respuesta = "si" Entonces
+			jugarDeNuevo <- Verdadero;
+		Sino
+			jugarDeNuevo <- Falso;
+			Escribir "¡Gracias por jugar!.";
+		FinSi
+	FinMientras 
+FinProceso
+
